@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="js/jqwidgets/styles/jqx.base.css" rel="stylesheet" />
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CRUD Example</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active" id="navHome"><a href="#">Home</a></li>
+                <li id="navGU"><a href="#">Get Users</a></li>
+                <li id="navGUBI"><a href="#">Find User by ID</a></li>
+                <li id="navIU"><a href="#">Insert User</a></li>
+                <li id="navUU"><a href="#">Update User</a></li>
+                <li id="navDU"><a href="#">Delete User</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" id="conGetUsers" hidden="hidden">
+        <div class="panel panel-primary">
+            <div class="panel-heading">GetUsers<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+            <form id="frmGetUsers" name="frmGetUsers">
+                <div class="panel-body">
+                    <div id="getInfoGU" hidden="hidden">
+                        <h4 class="blue">
+                            Gathering Details...    <i class="fa fa-spinner fa-spin blue bigger-220"></i>
+                        </h4>
+                    </div>
+                    <div id="testGrid"></div>
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-warning" id="btnGetUsers">Get Users</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="conInsertUser" hidden="hidden">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Insert User<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+            <form id="frmInsertUser" name="frmInsertUser">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="txtUserName">User Name</label>
+                        <input type="text" class="form-control" id="txtUserName" name="txtUserName" placeholder="User Name">
+                        <div class="error" id="txtUserNameError" style="display: none;">Please enter user name!</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPassword">Password</label>
+                        <input type="text" class="form-control" id="txtPassword" name="txtPassword" placeholder="Password">
+                        <div class="error" id="txtPasswordError" style="display: none;">Please enter password!</div>
+                    </div>
+                    <div id="getInsertResult"></div>
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-warning" id="btnInsertUser">Insert User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="conGetUser" hidden="hidden">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Get User By ID<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+            <form id="frmGetUser" name="frmGetUser">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="txtUserId">User Id</label>
+                        <input type="text" class="form-control" id="txtUserId" name="txtUserId" placeholder="User Id">
+                        <div class="error" id="txtUserIdError" style="display: none;">Please enter user id!</div>
+                    </div>
+                    <div id="getInfoGUBI" hidden="hidden">
+                        <h4 class="blue">
+                            Gathering Details...    <i class="fa fa-spinner fa-spin blue bigger-220"></i>
+                        </h4>
+                    </div>
+                    <div id="getUserResult"></div>
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-warning" id="btnGetUser">Get User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="conUpdateUser" hidden="hidden">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Update User<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+            <form id="frmUpdateUser" name="frmUpdateUser">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div id="selUserLoader">
+                            <h4 class="blue">
+                                Gathering Details...    <i class="fa fa-spinner fa-spin blue"></i>
+                            </h4>
+                        </div>
+                        <div id="isSelectLoaded" hidden="hidden">
+                            <label for="selUserUU">Select user</label>
+                            <select id="selUserUU"></select>
+                        </div>                        
+                    </div>
+                    <div id="showFieldsLoader" hidden="hidden">
+                        <h4 class="blue">
+                            Gathering Details...    <i class="fa fa-spinner fa-spin blue"></i>
+                        </h4>
+                    </div>
+                    <div id="showFieldsUU" hidden="hidden">
+                        <div class="form-group">
+                            <label for="txtUserNameUU">User Name</label>
+                            <input type="text" class="form-control" id="txtUserNameUU" name="txtUserNameUU" placeholder="User Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtPasswordUU">Password</label>
+                            <input type="text" class="form-control" id="txtPasswordUU" name="txtPasswordUU" placeholder="Password">
+                        </div>
+                        <div class="form-group" style="margin-bottom:0px !important;">
+                            <label for="">Active</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="slideThree">
+                                <input type="checkbox" value="None" id="slideThree" name="check" />
+                                <label for="slideThree"></label>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div id="getInfoUU" hidden="hidden">
+                        <h4 class="blue">
+                            Gathering Details...    <i class="fa fa-spinner fa-spin blue bigger-220"></i>
+                        </h4>
+                    </div>
+                    <div id="UpdateUserResult"></div>
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-warning" id="btnUpdateUser">Update User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var callback = function () {
+            var uiMod = new UIMod();
+            var getUsersMod = new GetUsersMod();
+            var insertUserMod = new InsertUserMod();
+            var getUserByIdMod = new GetUserByIdMod();
+            var updateUserMod = new UpdateUserMod();
+        };
+
+        if (document.readyState === "complete" ||
+            (document.readyState !== "loading" && !document.documentElement.doScroll)) {
+            callback();
+        } else {
+            document.addEventListener("DOMContentLoaded", callback);
+        };
+
+    </script>
+    <script src="js/jqwidgets/jqx-all.js"></script>
+    <script src="js/main.js?version=0.00.02"></script>
+    <!--<script src="js/main-min.js?version=0.00.01"></script>-->
+</body>
+</html>
